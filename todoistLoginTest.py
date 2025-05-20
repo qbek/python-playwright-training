@@ -7,6 +7,10 @@ from pageobject.TodoistApp import TodoistApp
 
 from playwright.sync_api import Page, expect, Playwright
 
+from steps.Given import Given
+from steps.When import When
+from steps.Then import Then
+
 @pytest.fixture
 def login(page: Page):
   return LoginForm(page)
@@ -28,18 +32,23 @@ def newProjectForm(page: Page):
   return NewProjectForm(page)
 
 
-def test_userCanLogIn(login, todoist):
-  #Given
-  todoist.navigateToLoginPage()
+@pytest.fixture
+def given(page: Page):
+  return Given(page)
 
-  #When
-  login.enterEmail('gbinxeqerpnywwysux@awdrt.org')
-  login.enterPassword('ti4FCvBL39i7mMq')
-  login.submitForm()
+@pytest.fixture
+def when(page: Page):
+  return When(page)
 
-  #Then
-  cookies = todoist.getAllCookies()
-  assert any(cookie['name'] == 'todoistd' for cookie in cookies), f"Expected cookie todoistd dosn't exists in: {cookies}"
+@pytest.fixture
+def then(page: Page):
+  return Then(page)
+
+
+def test_userCanLogIn(given, when, then):
+  given.userOpensLoginPage()
+  when.userEntersCorrectCredentials()
+  then.userChecksIfIsLoggedIn()
 
 def test_userCanCreateProject(login: LoginForm, todoist: TodoistApp, projects: ProjectsList, projectsMenu: ProjectsMenu, newProjectForm: NewProjectForm):
   projectName = 'Moj testowy projekt'
