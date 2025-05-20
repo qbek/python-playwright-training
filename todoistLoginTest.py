@@ -57,7 +57,20 @@ def test_userCanCreateProject(login: LoginForm, todoist: TodoistApp, projects: P
 
   existingProjects = projects.getExistingProjects()
   print (existingProjects)
-  assert projectName in existingProjects
+  assert existingProjects.pop() == projectName
+  # assert projectName in existingProjects
+
+  # Jezeli chcecie korzystac z asercji Playwright to z PO zwracajcie sobie element do sprawdzenia
+  # allProjects = projects.getAllProjectItemEl()
+  # expect(allProjects).to_contain_text(projectName)
 
 
-
+# def test_checkProjectListExample(login: LoginForm, todoist: TodoistApp, page: Page):
+  # todoist.navigateToLoginPage()
+  # login.enterEmail('gbinxeqerpnywwysux@awdrt.org')
+  # login.enterPassword('ti4FCvBL39i7mMq')
+  # login.submitForm()
+  # page.wait_for_selector('#projects_list')
+  # expect().to_have_text(['1', '2', '3'])
+  # items = ['1', '2', '4', '3']
+  # assert set(['1', '2', '5']).issubset(items) 

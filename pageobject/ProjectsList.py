@@ -8,7 +8,9 @@ class ProjectsList:
     self._page.locator('[aria-label="My projects menu"]').click()
 
   def getExistingProjects(self):
-    return self._page.locator('#projects_list').inner_text()
+    return self._page.locator('#projects_list li').all_text_contents()
+
+  def getAllProjectItemEl(self):
+    return self._page.locator('#projects_list')
   
-  def getLastProjectName(self):
-    return self._page.locator('[data-testid="project-list-item"]').inner_text()
+  
