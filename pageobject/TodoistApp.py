@@ -13,3 +13,6 @@ class TodoistApp:
   def getAllCookies(self):
     self._page.wait_for_url(_MAIN_APP_URL)
     return self._page.context.cookies()
+
+  def navigateTo(self, url):
+    self._page.goto(url)
