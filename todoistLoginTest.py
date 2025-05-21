@@ -19,11 +19,10 @@ def then(page: Page):
   return Then(page)
 
 
-def test_userCanLogIn(given, when, then):
+def test_userCanLogIn(given: Given, when: When, then: Then):
   given.userOpensLoginPage()
   when.userEntersCorrectCredentials()
   then.userChecksIfIsLoggedIn()
-  
 
 
 def test_userCanCreateProject(given: Given, when: When, then: Then):
@@ -32,8 +31,12 @@ def test_userCanCreateProject(given: Given, when: When, then: Then):
   when.userCreatesNewProject(projectName)
   then.userVerifiesCreatedProject(projectName)
 
-
-
+def test_userCanAddTaskToTheProject(given: Given, when: When, then: Then):
+  projectName = "Projekt na zadnie"
+  taskName = "Moje zadanie"
+  given.userHasProjectCreated(projectName)
+  when.userAddTaskToTheProject(taskName)
+  then.userChecksIfTaskIsCreated(taskName)
 
 # def test_checkProjectListExample(login: LoginForm, todoist: TodoistApp, page: Page):
   # todoist.navigateToLoginPage()

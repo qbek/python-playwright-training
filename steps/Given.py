@@ -9,6 +9,7 @@ class Given:
     self._actions = When(page)
     self._checks = Then(page)
 
+
   def userOpensLoginPage(self):
     self._todoist.navigateToLoginPage()
 
@@ -17,7 +18,9 @@ class Given:
     self._actions.userEntersCorrectCredentials()
     self._checks.userChecksIfIsLoggedIn()
 
-  
+  def userHasProjectCreated(self, projectName):
+    self.userIsLoggedIn()
+    self._actions.userCreatesNewProject(projectName)
 
 
 

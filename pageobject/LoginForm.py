@@ -11,6 +11,7 @@ class LoginForm:
 
   def enterEmail(self, mail):
     self._page.locator(_EMAIL_INPUT).fill(mail)
+    
 
   def enterPassword(self, password):
     self._page.locator(_PASSWORD_INPUT).fill(password)
