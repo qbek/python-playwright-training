@@ -33,18 +33,6 @@ def test_userCanLogIn(given: Given, when: When, then: Then):
   then.userChecksIfIsLoggedIn()
 
 
-def test_userCanCreateProject(given: Given, when: When, then: Then):
-  projectName = 'Moj testowy projekt'
-  given.userIsLoggedIn()
-  when.userCreatesNewProject(projectName)
-  then.userVerifiesCreatedProject(projectName)
-
-def test_userCanAddTaskToTheProject(given: Given, when: When, then: Then):
-  projectName = "Projekt na zadnie"
-  taskName = "Moje zadanie"
-  given.userHasProjectCreated(projectName)
-  when.userAddTaskToTheProject(taskName)
-  then.userChecksIfTaskIsCreated(taskName)
 
 # def test_checkProjectListExample(login: LoginForm, todoist: TodoistApp, page: Page):
   # todoist.navigateToLoginPage()

@@ -12,6 +12,9 @@ class TodoistApp:
   def navigateToLoginPage(self):
     self._page.goto(_LOGIN_PAGE_URL)
 
+  def navigateToMainPage(self):
+    self._page.goto(_MAIN_APP_URL)
+
   def getAllCookies(self):
     self._page.wait_for_url(_MAIN_APP_URL)
     return self._page.context.cookies()

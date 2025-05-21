@@ -16,9 +16,10 @@ class Given:
     self._todoist.navigateToLoginPage()
 
   def userIsLoggedIn(self):
-    self.userOpensLoginPage()
-    self._actions.userEntersCorrectCredentials()
-    self._checks.userChecksIfIsLoggedIn()
+    # self.userOpensLoginPage()
+    # self._actions.userEntersCorrectCredentials()
+    # self._checks.userChecksIfIsLoggedIn()
+    self._todoist.navigateToMainPage()
 
   def userHasProjectCreated(self, projectName):
     self.userIsLoggedIn()

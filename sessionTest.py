@@ -17,3 +17,10 @@ def test_loadSessionWithPage(page: Page):
   page_with_session = new_context.new_page()
   page_with_session.goto('https://app.todoist.com/app')
   time.sleep(10)
+
+def test_twoBrowsers(page: Page):
+  new_context = page.context.browser.new_context()
+  page_2 = new_context.new_page()
+  page.goto("https://www.gazeta.pl")
+  page_2.goto("https://www.google.com")
+  time.sleep(10)
