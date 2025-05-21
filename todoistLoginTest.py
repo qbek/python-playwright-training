@@ -1,5 +1,6 @@
+import time
 import pytest
-from playwright.sync_api import Page, Playwright
+from playwright.sync_api import Page, Playwright, Route
 
 from steps.Given import Given
 from steps.When import When
@@ -32,6 +33,26 @@ def test_userCanLogIn(given: Given, when: When, then: Then):
   when.userEntersCorrectCredentials()
   then.userChecksIfIsLoggedIn()
 
+def test_userCannotLogIn(given: Given, when: When, page: Page):
+  page.route('**/api/v9.223/user/login', invalidEmailResponse)
+  given.userOpensLoginPage()
+  when.userEntersCorrectCredentials()
+  time.sleep(5)
+
+def invalidEmailResponse(route: Route):
+  data = {
+              "error": "Email is invalid",
+              "error_code": 8,
+              "error_extra": {
+                  "argument": "email",
+                  "event_id": "bb850f92a51e4750957a24fa31cd8c04",
+                  "expected": "email",
+                  "retry_after": 5
+              },
+              "error_tag": "INVALID_EMAIL",
+              "http_code": 400
+          }
+  route.fulfill(status=500, json=data)
 
 
 # def test_checkProjectListExample(login: LoginForm, todoist: TodoistApp, page: Page):
@@ -43,3 +64,5 @@ def test_userCanLogIn(given: Given, when: When, then: Then):
   # expect().to_have_text(['1', '2', '3'])
   # items = ['1', '2', '4', '3']
   # assert set(['1', '2', '5']).issubset(items) 
+
+
