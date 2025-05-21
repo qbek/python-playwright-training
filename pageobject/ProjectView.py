@@ -1,7 +1,7 @@
 from playwright.sync_api import Page
 _PROJECT_LIST_VIEW = '[data-testid="project-list-view"]' 
 _ADD_TASK_BUTTON = '[data-testid="project-list-view"] li.task_actions'
-_TASK_ITEM = f'{_PROJECT_LIST_VIEW} .task_list_item'
+_TASK_ITEM = f'{_PROJECT_LIST_VIEW} .task_list_item .task_content'
 
 class ProjectView:
   def __init__(self, page: Page):
