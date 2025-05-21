@@ -1,14 +1,19 @@
 import time
 import pytest
 from playwright.sync_api import Page, Playwright, Route
+from data.TestData import TestData
 
 from steps.Given import Given
 from steps.When import When
 from steps.Then import Then
 
+@pytest.fixture
+def test_data():
+  return TestData()
+
 
 @pytest.fixture
-def given(page: Page, playwright: Playwright):
+def given(page: Page, playwright: Playwright, test_data):
   headers = {
         "Accept": "application/json",
         "Authorization": "Bearer d469ce54eca3a7ca5b6b5e7d4c8d51ced8d4c7b1",
@@ -16,16 +21,16 @@ def given(page: Page, playwright: Playwright):
   request_context = playwright.request.new_context(
       base_url="https://api.todoist.com", extra_http_headers=headers
   )
-  yield Given(page, request_context)
+  yield Given(page, request_context, test_data)
   request_context.dispose()
 
 @pytest.fixture
-def when(page: Page):
-  return When(page)
+def when(page: Page, test_data):
+  return When(page, test_data)
 
 @pytest.fixture
-def then(page: Page):
-  return Then(page)
+def then(page: Page, test_data):
+  return Then(page, test_data)
 
 
 def test_userCanLogIn(given: Given, when: When, then: Then):

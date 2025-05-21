@@ -1,6 +1,7 @@
 import pytest
 from playwright.sync_api import Page, Playwright
 
+from data.TestData import TestData
 from steps.Given import Given
 from steps.When import When
 from steps.Then import Then
@@ -13,9 +14,13 @@ def session_page(page: Page):
   yield session_page
   session_page.close()
 
+@pytest.fixture
+def test_data():
+  return TestData()
+
 
 @pytest.fixture
-def given(session_page: Page, playwright: Playwright):
+def given(session_page: Page, playwright: Playwright, test_data):
   headers = {
         "Accept": "application/json",
         "Authorization": "Bearer d469ce54eca3a7ca5b6b5e7d4c8d51ced8d4c7b1",
@@ -23,27 +28,25 @@ def given(session_page: Page, playwright: Playwright):
   request_context = playwright.request.new_context(
       base_url="https://api.todoist.com", extra_http_headers=headers
   )
-  yield Given(session_page, request_context)
+  yield Given(session_page, request_context, test_data)
   request_context.dispose()
 
 @pytest.fixture
-def when(session_page: Page):
-  return When(session_page)
+def when(session_page: Page, test_data):
+  return When(session_page, test_data)
 
 @pytest.fixture
-def then(session_page: Page):
-  return Then(session_page)
+def then(session_page: Page, test_data):
+  return Then(session_page, test_data)
 
 
 def test_userCanCreateProject(given: Given, when: When, then: Then):
-  projectName = 'Moj testowy projekt'
   given.userIsLoggedIn()
-  when.userCreatesNewProject(projectName)
-  then.userVerifiesCreatedProject(projectName)
+  when.userCreatesNewProject()
+  then.userVerifiesCreatedProject()
 
 def test_userCanAddTaskToTheProject(given: Given, when: When, then: Then):
-  projectName = "Projekt na zadnie"
-  taskName = "Moje zadanie"
-  given.userHasProjectCreated(projectName)
-  when.userAddTaskToTheProject(taskName)
-  then.userChecksIfTaskIsCreated(taskName)
+  given.userHasProjectCreated()
+  when.userAddTaskToTheProject()
+  then.userChecksIfTaskIsCreated()
+
