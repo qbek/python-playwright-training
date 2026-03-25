@@ -5,7 +5,6 @@ from pageobjects.LoginForm import LoginForm
 from pageobjects.TodoistApp import TodoistApp
 
 
-
 def test_loginNegativeCase(page: Page):
   app = TodoistApp(page)
   login = LoginForm(page)

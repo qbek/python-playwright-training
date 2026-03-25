@@ -31,7 +31,6 @@ def test_cwiczenie1(page: Page):
   assert pageData == expected
 
   
-
   expect(page.locator('#firstname-check')).to_have_text('Kuba!!!')
   expect(page.locator('#lastname-check')).to_have_text('Szewczyk!!!')
   expect(page.locator('.form-control-plaintext')).to_have_value('wp@wp.pl')

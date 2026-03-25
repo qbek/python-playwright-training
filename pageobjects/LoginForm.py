@@ -12,7 +12,7 @@ class LoginForm:
 
   def enterLogin(self, login):
     self._page.locator(_EMAIL_INPUT).fill(login)
-
+    
   def enterPass(self, password):
     self._page.locator(_PASS_INPUT).fill(password)
 
