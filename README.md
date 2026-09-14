@@ -32,3 +32,29 @@ source .venv/bin/activate
 pip freeze > pip-packages.txt
 pip install -r pip-packages.txt
 ```
+
+## HelloWorld
+
+```
+import pytest
+from playwright.sync_api import Page
+
+def test_helloWorld(page: Page):
+     page.goto('https://google.com')
+```
+
+## pytest.ini
+
+Stwórz w root'cie projektu plik pytest.ini z zawartością:
+```
+[pytest]
+python_files = *Test.py
+addopts = -s --headed
+```
+
+
+## Najważniejsze linki z dokumentacji:
+
+* [Akcje](https://playwright.dev/python/docs/input)
+* [Asercje](https://playwright.dev/python/docs/test-assertions)
+* [Elementy](https://playwright.dev/python/docs/api/class-elementhandle)
