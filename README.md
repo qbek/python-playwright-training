@@ -52,7 +52,6 @@ python_files = *Test.py
 addopts = -s --headed
 ```
 
-
 ## Najważniejsze linki z dokumentacji:
 
 * [Akcje](https://playwright.dev/python/docs/input)
