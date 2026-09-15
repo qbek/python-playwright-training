@@ -57,3 +57,11 @@ addopts = -s --headed
 * [Akcje](https://playwright.dev/python/docs/input)
 * [Asercje](https://playwright.dev/python/docs/test-assertions)
 * [Elementy](https://playwright.dev/python/docs/api/class-elementhandle)
+
+
+## Flow implementacji testu:
+
+1. Zaimplementuj test w możliwe najprostszy sposób (bez przydasiów)
+2. Sprawdzić asercje (przetestować je!!!)
+3. Refaktor
+4. 
