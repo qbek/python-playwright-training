@@ -4,6 +4,7 @@ TODO_LABEL = '#todo-list label'
 TODO_ITEM = '#todo-list li'
 TODO_COMPLETE_TOGGLE = '.toggle'
 TODO_COMPLETED_MARK = ' completed'
+TODO_DELETE = '.destroy'
 
 
 class TodosList:
@@ -22,3 +23,9 @@ class TodosList:
 
     def check_todo_marked_completed(self):
         expect(self.page.locator(TODO_ITEM)).to_have_attribute('class', ' completed')
+
+    def hover_over_todo(self):
+        self.page.locator(TODO_ITEM).click()
+
+    def delete_todo(self):
+        self.page.locator(TODO_DELETE).click()
