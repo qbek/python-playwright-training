@@ -7,13 +7,7 @@ from pageobjects.TodoMVCApp import TodoMVCApp
 
 
 
-def test_userCanFilterActiveTodos(page: Page):
-    todoName = 'Zadanie do zakończenia'
-    todoMvc = TodoMVCApp(page)
-    newTodoInput = NewTodoInput(page)
-    todoFilters = TodoFilters(page)
-    todosList = TodosList(page)
-
+def test_userCanFilterActiveTodos(newTodoInput, todosList, todoFilters, todoMvc, todoName):
     todoMvc.open_main_view()
 
     newTodoInput.enter_todo_name(todoName)
@@ -23,13 +17,7 @@ def test_userCanFilterActiveTodos(page: Page):
     todosList.check_todo_NOT_displayed()
 
 
-def test_userCanFilterCompletedTodos(page: Page):
-    todoName = 'Zadanie do zakończenia'
-    todoMvc = TodoMVCApp(page)
-    newTodoInput = NewTodoInput(page)
-    todoFilters = TodoFilters(page)
-    todosList = TodosList(page)
-
+def test_userCanFilterCompletedTodos(newTodoInput, todosList, todoFilters, todoMvc, todoName):
     todoMvc.open_main_view()
 
     newTodoInput.enter_todo_name(todoName)

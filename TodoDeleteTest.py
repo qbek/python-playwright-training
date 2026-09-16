@@ -1,8 +1,6 @@
 import pytest
 
-def test_userCanDeleteTodo(todoMvc, newTodoInput, todosList):
-    todoName = 'Zadanie do skasowania'
-
+def test_userCanDeleteTodo(todoMvc, newTodoInput, todosList, todoName):
     todoMvc.open_main_view()
     newTodoInput.enter_todo_name(todoName)
     newTodoInput.submit_todo()
