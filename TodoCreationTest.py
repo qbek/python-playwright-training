@@ -1,43 +1,53 @@
 import pytest
 from playwright.sync_api import Page
 from playwright.sync_api import expect
+from pageobjects.NewTodoInput import NewTodoInput
+from pageobjects.TodoFilters import TodoFilters
+from pageobjects.TodosList import TodosList
 
 TODOMVC_URL = 'https://todomvc.com/examples/jquery/dist/#/all'
 
-NEW_TODO_INPUT = '#new-todo'
-TODO_LABEL = '#todo-list label'
-TODO_ITEM = '#todo-list li'
 
-TODO_COMPLETE_TOGGLE = '.toggle'
-
-ACTIVE_TAB = '#filters [href="#/active"]'
-COMPLETED_TAB = '#filters [href="#/completed"]'
-
-TODO_COMPLETED_MARK = ' completed'
 
 
 def test_userCanCreateATodo(page: Page):
     todoName = 'To jest moje lepsze zadanie'
+    newTodoInput = NewTodoInput(page)
+    todosList = TodosList(page)
 
     page.goto(TODOMVC_URL)
 
-    page.locator(NEW_TODO_INPUT).fill(todoName)
-    page.keyboard.press('Enter')
+    newTodoInput.enter_todo_name(todoName)
+    newTodoInput.submit_todo()
+    todosList.check_todo_displayed(todoName)
 
-    expect(page.locator(TODO_LABEL)).to_have_text(todoName)
 
-def test_userCanCompleteTheTodo(page: Page):
+
+def test_userCanFilterActiveTodos(page: Page):
     todoName = 'Zadanie do zakończenia'
+    newTodoInput = NewTodoInput(page)
+    todoFilters = TodoFilters(page)
+    todosList = TodosList(page)
+
     page.goto(TODOMVC_URL)
 
-    page.locator(NEW_TODO_INPUT).fill(todoName)
-    page.keyboard.press('Enter')
+    newTodoInput.enter_todo_name(todoName)
+    newTodoInput.submit_todo()
+    todosList.complete_todo()
+    todoFilters.goto_active_filter()
+    todosList.check_todo_NOT_displayed()
 
-    page.locator(TODO_COMPLETE_TOGGLE).check()
-    expect(page.locator(TODO_ITEM)).to_have_attribute('class', TODO_COMPLETED_MARK)
 
-    page.locator(ACTIVE_TAB).click()
-    expect(page.locator(TODO_LABEL)).not_to_be_visible()
+def test_userCanFilterCompletedTodos(page: Page):
+    todoName = 'Zadanie do zakończenia'
+    newTodoInput = NewTodoInput(page)
+    todoFilters = TodoFilters(page)
+    todosList = TodosList(page)
 
-    page.locator(COMPLETED_TAB).click()
-    expect(page.locator(TODO_LABEL)).to_have_text(todoName)
+    page.goto(TODOMVC_URL)
+
+    newTodoInput.enter_todo_name(todoName)
+    newTodoInput.submit_todo()
+    todosList.complete_todo()
+    todoFilters.goto_completed_filter()
+    todosList.check_todo_displayed(todoName)
