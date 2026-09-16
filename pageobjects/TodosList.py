@@ -21,4 +21,4 @@ class TodosList:
         self.page.locator(TODO_COMPLETE_TOGGLE).check()
 
     def check_todo_marked_completed(self):
-        expect(self.page.locator()).to_have_attribute('class', ' completed')
+        expect(self.page.locator(TODO_ITEM)).to_have_attribute('class', ' completed')

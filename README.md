@@ -63,5 +63,7 @@ addopts = -s --headed
 
 1. Zaimplementuj test w możliwe najprostszy sposób (bez przydasiów)
 2. Sprawdzić asercje (przetestować je!!!)
+--- DOBRY KOD ---
 3. Refaktor
-4. 
+4. Sprawdzi asercje ponownie
+--- Bardzo DOBRY KOD ---
