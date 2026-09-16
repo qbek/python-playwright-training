@@ -1,15 +1,7 @@
 import pytest
-from playwright.sync_api import Page
-from pageobjects.NewTodoInput import NewTodoInput
-from pageobjects.TodoMVCApp import TodoMVCApp
-from pageobjects.TodosList import TodosList
 
-
-def test_userCanCompleteTheTodo(page: Page):
+def test_userCanCompleteTheTodo(todoMvc, newTodoInput, todosList):
     todoName = 'Zadanie do zakończenia'
-    todoMvc = TodoMVCApp(page)
-    newTodoInput = NewTodoInput(page)
-    todosList = TodosList(page)
 
     todoMvc.open_main_view()
     newTodoInput.enter_todo_name(todoName)
