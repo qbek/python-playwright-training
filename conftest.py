@@ -7,6 +7,10 @@ from pageobjects.TodoMVCApp import TodoMVCApp
 from pageobjects.TodosList import TodosList
 from faker import Faker
 
+from steps.Given import Given
+from steps.Then import Then
+from steps.When import When
+
 
 @pytest.fixture
 def newTodoInput(page: Page):
@@ -15,6 +19,18 @@ def newTodoInput(page: Page):
 @pytest.fixture
 def todoMvc(page: Page):
     return TodoMVCApp(page)
+
+@pytest.fixture
+def given(page: Page):
+    return Given(page)
+
+@pytest.fixture
+def when(page: Page):
+    return When(page)
+
+@pytest.fixture
+def then(page: Page):
+    return Then(page)
 
 @pytest.fixture
 def todosList(page: Page):

@@ -5,9 +5,7 @@ from pageobjects.TodosList import TodosList
 from pageobjects.TodoMVCApp import TodoMVCApp
 
 
-def test_userCanCreateATodo(newTodoInput, todosList, todoMvc, todoName):
-    todoMvc.open_main_view()
-    newTodoInput.enter_todo_name(todoName)
-    newTodoInput.submit_todo()
-    todosList.check_todo_displayed(todoName)
-    
+def test_userCanCreateATodo(given, when, then, todoName):
+    given.todoMvc_app_is_opened()
+    when.create_todo(todoName)
+    then.check_todo_created(todoName)
