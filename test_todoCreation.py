@@ -1,39 +1,41 @@
 import pytest
 from playwright.sync_api import Page, expect
+from pageobjects.Filters import Filters
+from pageobjects.NewTodoInput import NewTodoInput
+from pageobjects.TodoMvc import TodoMvc
+from pageobjects.TodosList import TodosList
 
-TODOMVC_URL = 'https://todomvc.com/examples/jquery/dist/#/all'
-
-NEW_TODO_INPUT = '#new-todo'
-TODO_LABEL = '#todo-list label'
-
-TODO = '#todo-list li'
-TODO_COMPLETE_TOGGLE = '.toggle'
-TODOS_LIST = '#todo-list'
-ACTIVE_FILTER = '[href="#/active"]'
-COMPLETED_FILTER = '[href="#/completed"]'
 
 def test_userCanCreateATodo(page: Page):
-    page.goto(TODOMVC_URL)
+    app = TodoMvc(page)
+    newTodoInput = NewTodoInput(page)
+    todosList = TodosList(page)
 
+    app.openApp()
     todoName = 'Moje todo zmienie tylko raz'
     
-    page.locator(NEW_TODO_INPUT).fill(todoName)
-    page.keyboard.press('Enter')
-    expect(page.locator(TODO_LABEL)).to_have_text(todoName)
+    newTodoInput.enter_todo_name(todoName)
+    newTodoInput.submit_todo()
+    todosList.check_todo_displayed(todoName)
+
 
 def test_userCanCompleteATodo(page: Page):
-    page.goto(TODOMVC_URL)
+    app = TodoMvc(page)
+    newTodoInput = NewTodoInput(page)
+    todosList = TodosList(page)
+    filters = Filters(page)
+    
+    app.openApp()
 
     todoName = 'Wykonane zadanie'
-    page.locator(NEW_TODO_INPUT).fill(todoName)
-    page.keyboard.press('Enter')
+    newTodoInput.enter_todo_name(todoName)
+    newTodoInput.submit_todo()
 
-    page.locator(TODO_COMPLETE_TOGGLE).check()
-    expect(page.locator(TODO)).to_have_attribute('class', ' completed')
+    todosList.check_complete_toggle()
+    todosList.check_todo_marked_as_completed()
 
-    page.locator(ACTIVE_FILTER).click()
-    expect(page.locator(TODOS_LIST)).to_be_empty()
+    filters.goto_active()
+    todosList.check_list_empty()    
 
-    page.locator(COMPLETED_FILTER).click()
-    expect(page.locator(TODO_LABEL)).to_have_text(todoName)
-
+    filters.goto_completed()
+    todosList.check_todo_displayed(todoName)
