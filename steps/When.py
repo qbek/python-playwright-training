@@ -22,6 +22,7 @@ class When:
     def userCompletesTodo(self):
         self._todosList.check_complete_toggle()
 
+
     def userSelectsActiveFilter(self):
         self._filters.goto_active()
 

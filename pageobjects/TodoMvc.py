@@ -1,6 +1,6 @@
 from playwright.sync_api import Page
+from confenv import TODOMVC_URL
 
-TODOMVC_URL = 'https://todomvc.com/examples/jquery/dist/#/all'
 
 class TodoMvc:
 
