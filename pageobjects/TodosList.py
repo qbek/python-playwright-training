@@ -4,6 +4,7 @@ TODO_LABEL = '#todo-list label'
 
 TODO = '#todo-list li'
 TODO_COMPLETE_TOGGLE = '.toggle'
+TODO_DELETE = '.destroy'
 TODOS_LIST = '#todo-list'
 
 class TodosList:
@@ -22,3 +23,9 @@ class TodosList:
 
     def check_list_empty(self):
         expect(self._page.locator(TODOS_LIST)).to_be_empty()
+
+    def hover_over_todo(self):
+        self._page.locator(TODO).click()
+
+    def delete_todo(self):
+        self._page.locator(TODO_DELETE).click()

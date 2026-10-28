@@ -9,7 +9,6 @@ def test_userCanCompleteATodo(page: Page):
     app = TodoMvc(page)
     newTodoInput = NewTodoInput(page)
     todosList = TodosList(page)
-    filters = Filters(page)
     
     app.openApp()
 
@@ -32,6 +31,7 @@ def test_checkActiveFilters(page:Page):
     todoName = 'Wykonane zadanie'
     newTodoInput.enter_todo_name(todoName)
     newTodoInput.submit_todo()
+    
 
     todosList.check_complete_toggle()
 
