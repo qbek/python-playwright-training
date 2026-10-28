@@ -5,14 +5,15 @@ from pageobjects.NewTodoInput import NewTodoInput
 from pageobjects.TodoMvc import TodoMvc
 from pageobjects.TodosList import TodosList
 
-def test_userCanCompleteATodo(page: Page):
-    app = TodoMvc(page)
-    newTodoInput = NewTodoInput(page)
-    todosList = TodosList(page)
+
+
+
+def test_userCanCompleteATodo(app: TodoMvc, newTodoInput:NewTodoInput, todosList:TodosList): 
+    todoName = 'Wykonane zadanie'
+
     
     app.openApp()
-
-    todoName = 'Wykonane zadanie'
+    
     newTodoInput.enter_todo_name(todoName)
     newTodoInput.submit_todo()
 
@@ -20,34 +21,24 @@ def test_userCanCompleteATodo(page: Page):
     todosList.check_todo_marked_as_completed()
 
 
-def test_checkActiveFilters(page:Page):
-    app = TodoMvc(page)
-    newTodoInput = NewTodoInput(page)
-    todosList = TodosList(page)
-    filters = Filters(page)
-    
+def test_checkActiveFilters(app: TodoMvc, newTodoInput: NewTodoInput, todosList: TodosList, filters: Filters):
+    todoName = 'Wykonane zadanie'
+
     app.openApp()
 
-    todoName = 'Wykonane zadanie'
     newTodoInput.enter_todo_name(todoName)
     newTodoInput.submit_todo()
     
-
     todosList.check_complete_toggle()
-
     filters.goto_active()
     todosList.check_list_empty()    
 
 
-def test_checkCompletedFilter(page:Page):
-    app = TodoMvc(page)
-    newTodoInput = NewTodoInput(page)
-    todosList = TodosList(page)
-    filters = Filters(page)
-    
+def test_checkCompletedFilter(app: TodoMvc, newTodoInput: NewTodoInput, todosList: TodosList, filters: Filters): 
+    todoName = 'Wykonane zadanie'
+
     app.openApp()
 
-    todoName = 'Wykonane zadanie'
     newTodoInput.enter_todo_name(todoName)
     newTodoInput.submit_todo()
 

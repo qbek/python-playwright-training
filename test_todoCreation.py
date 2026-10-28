@@ -5,14 +5,20 @@ from pageobjects.TodoMvc import TodoMvc
 from pageobjects.TodosList import TodosList
 
 
-def test_userCanCreateATodo(page: Page):
-    app = TodoMvc(page)
-    newTodoInput = NewTodoInput(page)
-    todosList = TodosList(page)
-
+def test_userCanCreateATodo(newTodoInput: NewTodoInput, app: TodoMvc, todosList: TodosList):
     app.openApp()
     todoName = 'Moje todo zmienie tylko raz'
     
     newTodoInput.enter_todo_name(todoName)
     newTodoInput.submit_todo()
     todosList.check_todo_displayed(todoName)
+
+
+
+def test_userCanCreateATodoPrim(pageObjects:dict):
+    pageObjects['app'].openApp()
+    todoName = 'Moje todo zmienie tylko raz'
+    
+    pageObjects['newTodoInput'].enter_todo_name(todoName)
+    pageObjects['newTodoInput'].submit_todo()
+    pageObjects['todosList'].check_todo_displayed(todoName)
