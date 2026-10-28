@@ -1,48 +1,31 @@
 import pytest
-from playwright.sync_api import Page
-from pageobjects.Filters import Filters
-from pageobjects.NewTodoInput import NewTodoInput
-from pageobjects.TodoMvc import TodoMvc
-from pageobjects.TodosList import TodosList
+from steps.Given import Given
+from steps.Then import Then
+from steps.When import When
 
 
-
-
-def test_userCanCompleteATodo(app: TodoMvc, newTodoInput:NewTodoInput, todosList:TodosList): 
+def test_userCanCompleteATodo(given: Given, when: When, then:Then): 
     todoName = 'Wykonane zadanie'
 
-    
-    app.openApp()
-    
-    newTodoInput.enter_todo_name(todoName)
-    newTodoInput.submit_todo()
-
-    todosList.check_complete_toggle()
-    todosList.check_todo_marked_as_completed()
+    given.userHasAppReady()
+    given.userHasTodo(todoName)
+    when.userCompletesTodo()
+    then.userChecksTodoMarkedAsCompleted()
 
 
-def test_checkActiveFilters(app: TodoMvc, newTodoInput: NewTodoInput, todosList: TodosList, filters: Filters):
+def test_checkActiveFilters(given: Given, when: When, then:Then):
     todoName = 'Wykonane zadanie'
 
-    app.openApp()
-
-    newTodoInput.enter_todo_name(todoName)
-    newTodoInput.submit_todo()
+    given.userHasAppReady()
+    given.userHasCompletedTodo(todoName)
+    when.userSelectsActiveFilter()
+    then.userChecksTodosListEmpty()
     
-    todosList.check_complete_toggle()
-    filters.goto_active()
-    todosList.check_list_empty()    
 
-
-def test_checkCompletedFilter(app: TodoMvc, newTodoInput: NewTodoInput, todosList: TodosList, filters: Filters): 
+def test_checkCompletedFilter(given: Given, when: When, then:Then): 
     todoName = 'Wykonane zadanie'
 
-    app.openApp()
-
-    newTodoInput.enter_todo_name(todoName)
-    newTodoInput.submit_todo()
-
-    todosList.check_complete_toggle()
-
-    filters.goto_completed()
-    todosList.check_todo_displayed(todoName)
+    given.userHasAppReady()
+    given.userHasCompletedTodo(todoName)
+    when.userSelectsCompletedFilter()
+    then.userChecksTodoIsDisplayed(todoName)

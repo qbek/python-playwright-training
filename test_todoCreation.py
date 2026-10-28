@@ -1,17 +1,14 @@
 import pytest
-from playwright.sync_api import Page
-from pageobjects.NewTodoInput import NewTodoInput
-from pageobjects.TodoMvc import TodoMvc
-from pageobjects.TodosList import TodosList
+from steps.Given import Given
+from steps.Then import Then
+from steps.When import When
 
 
-def test_userCanCreateATodo(newTodoInput: NewTodoInput, app: TodoMvc, todosList: TodosList):
-    app.openApp()
+def test_userCanCreateATodo(given: Given, when: When, then: Then):
     todoName = 'Moje todo zmienie tylko raz'
-    
-    newTodoInput.enter_todo_name(todoName)
-    newTodoInput.submit_todo()
-    todosList.check_todo_displayed(todoName)
+    given.userHasAppReady()
+    when.userCreatesATodo(todoName)
+    then.userChecksTodoIsDisplayed(todoName)
 
 
 
